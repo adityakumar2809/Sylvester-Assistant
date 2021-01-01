@@ -33,6 +33,10 @@ deviceID = devices['devices'][0]['id']
 
 track = sp.current_user_playing_track()
 artist = track['item']['artists'][0]['name']
-track = track['item']['name']
+track_name = track['item']['name']
 if artist !="":
-    print("Currently playing " + artist + " - " + track)
+    print("Currently playing " + artist + " - " + track_name)
+
+track_uri = track['item']['uri']
+print(track_uri)
+
