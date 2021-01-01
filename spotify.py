@@ -1,23 +1,27 @@
 import spotipy
-from spotipy.oauth2 import SpotifyClientCredentials
+from spotipy.oauth2 import SpotifyClientCredentials, SpotifyOAuth
 
 from decouple import config
 
 SPOTIPY_CLIENT_ID = config('SPOTIPY_CLIENT_ID')
 SPOTIPY_CLIENT_SECRET = config('SPOTIPY_CLIENT_SECRET')
+SPOTIPY_REDIRECT_URI = config('SPOTIPY_REDIRECT_URI')
 
-birdy_uri = 'spotify:artist:2WX2uTcsvV5OnS0inACecP'
-spotify = spotipy.Spotify(
-    client_credentials_manager=SpotifyClientCredentials(
+scope = [
+    'user-library-read', 
+    'user-read-recently-played', 
+    'user-top-read', 
+    'user-read-playback-position'
+]
+scope = ' '.join(map(str, scope)) 
+
+sp = spotipy.Spotify(
+    auth_manager=SpotifyOAuth(
         SPOTIPY_CLIENT_ID,
-        SPOTIPY_CLIENT_SECRET
-    ))
+        SPOTIPY_CLIENT_SECRET,
+        SPOTIPY_REDIRECT_URI,
+        scope=scope
+        )
+    )
 
-results = spotify.artist_albums(birdy_uri, album_type='album')
-albums = results['items']
-while results['next']:
-    results = spotify.next(results)
-    albums.extend(results['items'])
-
-for album in albums:
-    print(album['name'])
+print(sp.current_user_recently_played(limit=1))
