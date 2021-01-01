@@ -86,6 +86,22 @@ def start_playback(spotify_object, device_id, track_uris):
     spotify_object.start_playback(device_id, None, track_uris)
 
 
+def pause_playback(spotify_object, device_id):
+    spotify_object.pause_playback(device_id)
+
+
+def resume_playback(spotify_object, device_id):
+    spotify_object.start_playback(device_id)
+
+
+def play_next_track(spotify_object, device_id):
+    spotify_object.next_track(device_id)
+
+
+def play_previous_track(spotify_object, device_id):
+    spotify_object.previous_track(device_id)
+
+
 if __name__ == "__main__":
     spotify_object = setup()
     device_id = get_device_id(spotify_object)
@@ -101,3 +117,7 @@ if __name__ == "__main__":
 
 
     # start_playback(spotify_object, device_id, track_uris)
+    # pause_playback(spotify_object, device_id)
+    # resume_playback(spotify_object, device_id)
+    # play_next_track(spotify_object, device_id)
+    # play_previous_track(spotify_object, device_id)
