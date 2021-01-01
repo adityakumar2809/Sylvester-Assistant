@@ -9,17 +9,29 @@ SPOTIPY_CLIENT_SECRET = config('SPOTIPY_CLIENT_SECRET')
 SPOTIPY_REDIRECT_URI = config('SPOTIPY_REDIRECT_URI')
 
 scope = [
-    'user-library-read', 
-    'user-read-recently-played', 
-    'user-top-read', 
+    'ugc-image-upload',
+    'user-read-recently-played',
+    'user-top-read',
     'user-read-playback-position',
-    'user-read-private',
     'user-read-playback-state',
-    'user-modify-playback-state'
+    'user-modify-playback-state',
+    'user-read-currently-playing',
+    'app-remote-control',
+    'streaming',
+    'playlist-modify-public',
+    'playlist-modify-private',
+    'playlist-read-private',
+    'playlist-read-collaborative',
+    'user-follow-modify',
+    'user-follow-read',
+    'user-library-modify',
+    'user-library-read',
+    'user-read-email',
+    'user-read-private'
 ]
 scope = ' '.join(map(str, scope)) 
 
-sp = spotipy.Spotify(
+spotify_object = spotipy.Spotify(
     auth_manager=SpotifyOAuth(
         SPOTIPY_CLIENT_ID,
         SPOTIPY_CLIENT_SECRET,
@@ -27,16 +39,3 @@ sp = spotipy.Spotify(
         scope=scope
         )
     )
-
-devices = sp.devices()
-deviceID = devices['devices'][0]['id']
-
-track = sp.current_user_playing_track()
-artist = track['item']['artists'][0]['name']
-track_name = track['item']['name']
-if artist !="":
-    print("Currently playing " + artist + " - " + track_name)
-
-track_uri = track['item']['uri']
-print(track_uri)
-
