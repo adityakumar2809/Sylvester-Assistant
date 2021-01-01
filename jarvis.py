@@ -1,6 +1,6 @@
 import pyttsx3
 import datetime
-import SpeechRecognition as sr
+import speech_recognition as sr
 
 engine = pyttsx3.init('sapi5')
 voices = engine.getProperty('voices')
@@ -28,5 +28,25 @@ def wishMe():
     speak('I am Jarvis. I am here to help you')
 
 
+def takeCommand():
+    """Takes microphone input and returns corresponding String"""
+    recognizer = sr.Recognizer()
+    with sr.Microphone() as source:
+        print('Listening...')
+        recognizer.pause_threshold = 1
+        audio = recognizer.listen(source)
+
+    try:
+        print('Recognizing...')
+        query = recognizer.recognize_google(audio, language='en-in')
+        print(f'User said: {query}')
+    except Exception as e:
+        print('Say that again please...')
+        return None
+
+    return query
+
+
 if __name__ == "__main__":
     wishMe()
+    takeCommand()
