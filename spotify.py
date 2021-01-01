@@ -52,8 +52,16 @@ def get_device_id(spotify_object):
     return device_id
 
 
+def get_featured_playlists(spotify_object):
+    playlists = spotify_object.featured_playlists(limit=10)
+    # print(json.dumps(playlists, indent=4, sort_keys=True))
+    playlist_ids = [x['id'] for x in playlists['playlists']['items']]
+    return playlist_ids
+    # return 0
+
+
 def get_user_playlists(spotify_object):
-    playlists = spotify_object.current_user_playlists(limit=5)
+    playlists = spotify_object.current_user_playlists(limit=10)
     playlist_ids = [x['id'] for x in playlists['items']]
     return playlist_ids
 
@@ -71,7 +79,11 @@ def start_playback(spotify_object, device_id, track_uris):
 if __name__ == "__main__":
     spotify_object = setup()
     device_id = get_device_id(spotify_object)
+
     playlist_ids = get_user_playlists(spotify_object)
     track_uris = get_tracks_from_playlist(spotify_object, playlist_ids[1])
 
-    start_playback(spotify_object, device_id, track_uris)
+    featured_playlist_ids = get_featured_playlists(spotify_object)
+    print(featured_playlist_ids)
+
+    # start_playback(spotify_object, device_id, track_uris)
