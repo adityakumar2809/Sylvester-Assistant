@@ -28,8 +28,5 @@ sp = spotipy.Spotify(
         )
     )
 
-# recently_played = sp.current_user_recently_played(limit=5)
-# print(json.dumps(recently_played, sort_keys=True, indent=4))
-
 devices = sp.devices()
-print(json.dumps(devices, sort_keys=True, indent=4))
+deviceID = devices['devices'][0]['id']
