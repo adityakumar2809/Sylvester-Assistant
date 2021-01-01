@@ -57,26 +57,21 @@ def get_user_playlists(spotify_object):
     playlist_ids = [x['id'] for x in playlists['items']]
     return playlist_ids
 
+
 def get_tracks_from_playlist(spotify_object, playlist_id):
     playlist = spotify_object.playlist(playlist_id)
     track_uris = [x['track']['uri'] for x in playlist['tracks']['items']]
-    # print(json.dumps(playlist['tracks']['items'], indent=4, sort_keys=True))
-    print(track_uris)
+    return track_uris
 
-# track = spotify_object.current_user_playing_track()
-# artist = track['item']['artists'][0]['name']
-# track_name = track['item']['name']
-# if artist !="":
-#     print("Currently playing " + artist + " - " + track_name)
 
-# track_uri = track['item']['uri']
-# print(track_uri)
-
-# spotify_object.start_playback(deviceID, None, [track_uri])
+def start_playback(spotify_object, device_id, track_uris):
+    spotify_object.start_playback(device_id, None, track_uris)
 
 
 if __name__ == "__main__":
     spotify_object = setup()
     device_id = get_device_id(spotify_object)
     playlist_ids = get_user_playlists(spotify_object)
-    get_tracks_from_playlist(spotify_object, playlist_ids[1])
+    track_uris = get_tracks_from_playlist(spotify_object, playlist_ids[1])
+
+    start_playback(spotify_object, device_id, track_uris)
