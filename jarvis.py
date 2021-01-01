@@ -49,12 +49,16 @@ def takeCommand():
     return query
 
 
+def searchWikipedia(query):
+    speak('Searching Wikipedia...')
+    search_string = query.replace('wikipedia', '')
+    results = wikipedia.summary(search_string, sentences=2)
+    speak(f"According to Wikipedia, {results}")
+
+
 def executeCommand(query):
     if 'wikipedia' in query:
-        speak('Searching Wikipedia...')
-        search_string = query.replace('wikipedia', '')
-        results = wikipedia.summary(search_string, sentences=2)
-        speak(f"According to Wikipedia, {results}")
+        searchWikipedia(query)
     elif 'open youtube' in query:
         webbrowser.open('https://www.youtube.com')
     elif 'sleep' in query:
