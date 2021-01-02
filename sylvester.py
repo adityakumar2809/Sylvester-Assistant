@@ -45,28 +45,7 @@ def wishMe():
         speak('Good Evening Aditya Sir!')
     else:
         speak('Hello Aditya Sir!')
-    speak('I am Sylvester. I am here to help you')
-
-
-def takeCommand():
-    """Takes microphone input and returns corresponding String"""
-    recognizer = sr.Recognizer()
-    with sr.Microphone() as source:
-        print('Listening...')
-        recognizer.pause_threshold = 1
-        beep()
-        audio = recognizer.listen(source)
-
-    try:
-        print('Recognizing...')
-        query = recognizer.recognize_google(audio, language='en-in')
-        print(f'User said: {query}')
-    except Exception as e:
-        speak('Say that again please...')
-        print('Say that again please...')
-        return takeCommand()
-
-    return query
+    speak('Sylvester at your service. Initiated command mode.')
 
 
 def searchWikipedia(query):
@@ -171,6 +150,55 @@ def playTopTracks():
     playTrackFromUris(top_track_uris)
 
 
+def initiateCommandMode():
+    """Checks if user want to talk to Sylvester"""
+    recognizer = sr.Recognizer()
+    with sr.Microphone() as source:
+        print('Listening (But will not accept commands)...')
+        recognizer.pause_threshold = 1
+        recognizer.dynamic_energy_threshold = False
+        recognizer.energy_threshold = 200
+        try:
+            audio = recognizer.listen(source)
+        except sr.WaitTimeoutError:
+            audio = None
+            print('timeout')
+    if audio:
+        try:
+            query = recognizer.recognize_google(audio, language='en-in')
+            if query:
+                print(f'User said: {query}')
+                if 'sylvester' in query.lower():
+                    winsound.PlaySound("./audio/power_up.wav", winsound.SND_FILENAME)
+                    wishMe()
+                    return True
+        except Exception as e:
+            return False
+
+    return False
+
+
+def takeCommand():
+    """Takes microphone input and returns corresponding String"""
+    recognizer = sr.Recognizer()
+    with sr.Microphone() as source:
+        print('Listening...')
+        recognizer.pause_threshold = 1
+        beep()
+        audio = recognizer.listen(source)
+
+    try:
+        print('Recognizing...')
+        query = recognizer.recognize_google(audio, language='en-in')
+        print(f'User said: {query}')
+    except Exception as e:
+        speak('Say that again please...')
+        print('Say that again please...')
+        return takeCommand()
+
+    return query
+
+
 def executeCommand(query):
     """Decide the action to be performed based on query string"""
     if 'wikipedia' in query:
@@ -180,16 +208,20 @@ def executeCommand(query):
     elif 'spotify' in query:
         exploitSpotify(query)
     elif 'sleep' in query:
-        speak('We will meet again soon. Going to sleep.')
+        speak('Terminated command mode. Going to sleep in, 3, 2, 1.')
+        winsound.PlaySound("./audio/power_down.wav", winsound.SND_FILENAME)
         return False
     return True
 
 
 if __name__ == "__main__":
-    # wishMe()
     continue_listening = True
+    command_mode = False
     while continue_listening:
-        query = takeCommand()
-        if query:
-            query = query.lower()
-            continue_listening = executeCommand(query)
+        if not command_mode:
+            command_mode = initiateCommandMode()
+        if command_mode:
+            query = takeCommand()
+            if query:
+                query = query.lower()
+                command_mode = executeCommand(query)
