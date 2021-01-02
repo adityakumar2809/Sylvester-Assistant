@@ -62,9 +62,8 @@ def takeCommand():
         query = recognizer.recognize_google(audio, language='en-in')
         print(f'User said: {query}')
     except Exception as e:
-        print(e)
         print('Say that again please...')
-        return None
+        return takeCommand()
 
     return query
 
@@ -111,8 +110,23 @@ def choosePlaylist():
         speak(
             f'Playing {user_playlist_names[selected_playlist_index]}'
         )
+        playTracksFromPlaylist(user_playlist_ids[selected_playlist_index])
     else:
         speak('Sorry Sir. No playlists available.')
+
+
+def playTracksFromPlaylist(playlist_id):
+    """Play tracks of a given playlist id"""
+    playlist_track_uris = spotify.get_tracks_from_playlist(
+        spotify_object, 
+        playlist_id
+    )
+    print(playlist_track_uris)
+    # spotify.start_playback(
+    #     spotify_object, 
+    #     spotify.get_device_id(spotify_object), 
+    #     playlist_track_uris
+    # )
 
 
 def executeCommand(query):

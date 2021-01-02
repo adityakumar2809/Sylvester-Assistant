@@ -53,13 +53,13 @@ def get_device_id(spotify_object):
 
 
 def get_featured_playlists(spotify_object):
-    playlists = spotify_object.featured_playlists(limit=10)
+    playlists = spotify_object.featured_playlists(limit=5)
     playlist_ids = [x['id'] for x in playlists['playlists']['items']]
     return playlist_ids
 
 
 def get_user_playlists(spotify_object):
-    playlists = spotify_object.current_user_playlists(limit=10)
+    playlists = spotify_object.current_user_playlists(limit=5)
     playlist_ids = [x['id'] for x in playlists['items']]
     playlist_names = [x['name'] for x in playlists['items']]
     return playlist_ids, playlist_names
