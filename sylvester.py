@@ -62,6 +62,7 @@ def takeCommand():
         query = recognizer.recognize_google(audio, language='en-in')
         print(f'User said: {query}')
     except Exception as e:
+        speak('Say that again please...')
         print('Say that again please...')
         return takeCommand()
 
@@ -81,7 +82,7 @@ def exploitSpotify(query):
     if 'my playlist' in query:
         choosePlaylist()
     elif 'my recently played track' in query:
-        print('my recently played track')
+        playRecentlyPlayedTracks()
     elif 'my top track' in query:
         print('top')
     elif 'featured playlist' in query:
@@ -127,6 +128,21 @@ def playTracksFromPlaylist(playlist_id):
     #     spotify.get_device_id(spotify_object), 
     #     playlist_track_uris
     # )
+
+
+def playRecentlyPlayedTracks():
+    """Play tracks which were recently played by the user"""
+    recently_played_track_uris = spotify.get_recently_played_tracks(
+        spotify_object
+    )
+    print(recently_played_track_uris)
+
+    # spotify.start_playback(
+    #     spotify_object, 
+    #     spotify.get_device_id(spotify_object), 
+    #     recently_played_track_uris
+    # )
+
 
 
 def executeCommand(query):
