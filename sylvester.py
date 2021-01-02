@@ -3,10 +3,12 @@ import datetime
 import speech_recognition as sr
 import wikipedia
 import webbrowser
+import spotify
 
 engine = pyttsx3.init('sapi5')
 voices = engine.getProperty('voices')
 engine.setProperty('voice', voices[0].id)
+spotify_object = spotify.setup()
 
 
 def speak(audio):
@@ -56,11 +58,32 @@ def searchWikipedia(query):
     speak(f"According to Wikipedia, {results}")
 
 
+def exploitSpotify(query):
+    if 'my playlist' in query:
+        print('my playlist')
+    elif 'my recently played track' in query:
+        print('my recently played track')
+    elif 'my top track' in query:
+        print('top')
+    elif 'featured playlist' in query:
+        print('featured')
+    elif 'next track' in query:
+        print('next')
+    elif 'previous track' in query:
+        print('previous')
+    elif 'pause the track' in query:
+        print('pause')
+    elif 'resume the track' in query:
+        print('resume')
+
+
 def executeCommand(query):
     if 'wikipedia' in query:
         searchWikipedia(query)
     elif 'open youtube' in query:
         webbrowser.open('https://www.youtube.com')
+    elif 'spotify' in query:
+        exploitSpotify(query)
     elif 'sleep' in query:
         speak('We will meet again soon. Going to sleep.')
         return False
