@@ -84,7 +84,7 @@ def exploitSpotify(query):
     elif 'my recently played track' in query:
         playRecentlyPlayedTracks()
     elif 'my top track' in query:
-        print('top')
+        playTopTracks()
     elif 'featured playlist' in query:
         print('featured')
     elif 'next track' in query:
@@ -95,6 +95,15 @@ def exploitSpotify(query):
         print('pause')
     elif 'resume the track' in query:
         print('resume')
+
+
+def playTrackFromUris(track_uris):
+    print(track_uris)
+    # spotify.start_playback(
+    #     spotify_object,
+    #     spotify.get_device_id(spotify_object),
+    #     track_uris
+    # )
 
 
 def choosePlaylist():
@@ -119,15 +128,10 @@ def choosePlaylist():
 def playTracksFromPlaylist(playlist_id):
     """Play tracks of a given playlist id"""
     playlist_track_uris = spotify.get_tracks_from_playlist(
-        spotify_object, 
+        spotify_object,
         playlist_id
     )
-    print(playlist_track_uris)
-    # spotify.start_playback(
-    #     spotify_object, 
-    #     spotify.get_device_id(spotify_object), 
-    #     playlist_track_uris
-    # )
+    playTrackFromUris(playlist_track_uris
 
 
 def playRecentlyPlayedTracks():
@@ -135,14 +139,15 @@ def playRecentlyPlayedTracks():
     recently_played_track_uris = spotify.get_recently_played_tracks(
         spotify_object
     )
-    print(recently_played_track_uris)
+    playTrackFromUris(recently_played_track_uris)
 
-    # spotify.start_playback(
-    #     spotify_object, 
-    #     spotify.get_device_id(spotify_object), 
-    #     recently_played_track_uris
-    # )
 
+def playTopTracks():
+    """Play top tracks of the user"""
+    top_track_uris = spotify.get_user_top_tracks(
+        spotify_object
+    )
+    playTrackFromUris(top_track_uris)
 
 
 def executeCommand(query):
