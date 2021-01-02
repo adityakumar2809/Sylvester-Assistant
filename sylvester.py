@@ -215,6 +215,7 @@ def executeCommand(query):
 
 
 if __name__ == "__main__":
+    speak('Sun, 3 Jan 2021 00:23:15 +0530')
     continue_listening = True
     command_mode = False
     while continue_listening:
