@@ -80,13 +80,13 @@ def searchWikipedia(query):
 def exploitSpotify(query):
     """Decide which action to be performed in spotify module"""
     if 'my playlist' in query:
-        choosePlaylist()
+        choosePlaylist('user')
     elif 'my recently played track' in query:
         playRecentlyPlayedTracks()
     elif 'my top track' in query:
         playTopTracks()
     elif 'featured playlist' in query:
-        print('featured')
+        choosePlaylist('featured')
     elif 'next track' in query:
         print('next')
     elif 'previous track' in query:
@@ -106,21 +106,26 @@ def playTrackFromUris(track_uris):
     # )
 
 
-def choosePlaylist():
+def choosePlaylist(query):
     """Choose a playlist from a given list"""
-    user_playlist_ids, user_playlist_names = spotify.get_user_playlists(
-        spotify_object
-    )
-    if len(user_playlist_names) > 0:
+    if 'user' in query:
+        playlist_ids, playlist_names = spotify.get_user_playlists(
+            spotify_object
+        )
+    elif 'featured' in query:
+        playlist_ids, playlist_names = spotify.get_featured_playlists(
+            spotify_object
+        )
+    if len(playlist_names) > 0:
         speak('Please choose the playlist from the following options')
-        for i in range(len(user_playlist_names)):
-            speak(user_playlist_names[i])
+        for i in range(len(playlist_names)):
+            speak(playlist_names[i])
         selected_playlist_index = takeCommand()
         selected_playlist_index = number_dict[selected_playlist_index]
         speak(
-            f'Playing {user_playlist_names[selected_playlist_index]}'
+            f'Playing {playlist_names[selected_playlist_index]}'
         )
-        playTracksFromPlaylist(user_playlist_ids[selected_playlist_index])
+        playTracksFromPlaylist(playlist_ids[selected_playlist_index])
     else:
         speak('Sorry Sir. No playlists available.')
 
@@ -131,7 +136,7 @@ def playTracksFromPlaylist(playlist_id):
         spotify_object,
         playlist_id
     )
-    playTrackFromUris(playlist_track_uris
+    playTrackFromUris(playlist_track_uris)
 
 
 def playRecentlyPlayedTracks():
