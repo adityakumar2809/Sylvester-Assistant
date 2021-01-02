@@ -61,7 +61,8 @@ def get_featured_playlists(spotify_object):
 def get_user_playlists(spotify_object):
     playlists = spotify_object.current_user_playlists(limit=10)
     playlist_ids = [x['id'] for x in playlists['items']]
-    return playlist_ids
+    playlist_names = [x['name'] for x in playlists['items']]
+    return playlist_ids, playlist_names
 
 
 def get_tracks_from_playlist(spotify_object, playlist_id):
@@ -106,7 +107,7 @@ if __name__ == "__main__":
     spotify_object = setup()
     device_id = get_device_id(spotify_object)
 
-    user_playlist_ids = get_user_playlists(spotify_object)
+    user_playlist_ids, user_playlist_names = get_user_playlists(spotify_object)
     playlist_track_uris = get_tracks_from_playlist(spotify_object, user_playlist_ids[1])
 
     featured_playlist_ids = get_featured_playlists(spotify_object)
