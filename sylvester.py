@@ -98,7 +98,21 @@ def exploitSpotify(query):
 
 
 def choosePlaylist():
-    pass
+    """Choose a playlist from a given list"""
+    user_playlist_ids, user_playlist_names = spotify.get_user_playlists(
+        spotify_object
+    )
+    if len(user_playlist_names) > 0:
+        speak('Please choose the playlist from the following options')
+        for i in range(len(user_playlist_names)):
+            speak(user_playlist_names[i])
+        selected_playlist_index = takeCommand()
+        selected_playlist_index = number_dict[selected_playlist_index]
+        speak(
+            f'Playing {user_playlist_names[selected_playlist_index]}'
+        )
+    else:
+        speak('Sorry Sir. No playlists available.')
 
 
 def executeCommand(query):
