@@ -46,80 +46,80 @@ def setup():
     return spotify_object
 
 
-def get_device_id(spotify_object):
+def getDeviceId(spotify_object):
     devices = spotify_object.devices()
     device_id = devices['devices'][0]['id']
     return device_id
 
 
-def get_featured_playlists(spotify_object):
+def getFeaturedPlaylists(spotify_object):
     playlists = spotify_object.featured_playlists(limit=5)
     playlist_ids = [x['id'] for x in playlists['playlists']['items']]
     playlist_names = [x['name'] for x in playlists['playlists']['items']]
     return playlist_ids, playlist_names
 
 
-def get_user_playlists(spotify_object):
+def getUserPlaylists(spotify_object):
     playlists = spotify_object.current_user_playlists(limit=5)
     playlist_ids = [x['id'] for x in playlists['items']]
     playlist_names = [x['name'] for x in playlists['items']]
     return playlist_ids, playlist_names
 
 
-def get_tracks_from_playlist(spotify_object, playlist_id):
+def getTracksFromPlaylist(spotify_object, playlist_id):
     playlist = spotify_object.playlist(playlist_id)
     track_uris = [x['track']['uri'] for x in playlist['tracks']['items']]
     return track_uris
 
 
-def get_recently_played_tracks(spotify_object):
+def getRecentlyPlayedTracks(spotify_object):
     recently_played_tracks = spotify_object.current_user_recently_played(limit=30)
     track_uris = [x['track']['uri'] for x in recently_played_tracks['items']]
     return track_uris
 
 
-def get_user_top_tracks(spotify_object):
+def getUserTopTracks(spotify_object):
     user_top_tracks = spotify_object.current_user_top_tracks(limit=30)
     track_uris = [x['uri'] for x in user_top_tracks['items']]
     return track_uris
 
 
-def start_playback(spotify_object, device_id, track_uris):
+def startPlayback(spotify_object, device_id, track_uris):
     spotify_object.start_playback(device_id, None, track_uris)
 
 
-def pause_playback(spotify_object, device_id):
+def pausePlayback(spotify_object, device_id):
     spotify_object.pause_playback(device_id)
 
 
-def resume_playback(spotify_object, device_id):
+def resumePlayback(spotify_object, device_id):
     spotify_object.start_playback(device_id)
 
 
-def play_next_track(spotify_object, device_id):
+def playNextTrack(spotify_object, device_id):
     spotify_object.next_track(device_id)
 
 
-def play_previous_track(spotify_object, device_id):
+def playPreviousTrack(spotify_object, device_id):
     spotify_object.previous_track(device_id)
 
 
 if __name__ == "__main__":
     spotify_object = setup()
-    device_id = get_device_id(spotify_object)
+    device_id = getDeviceId(spotify_object)
 
-    user_playlist_ids, user_playlist_names = get_user_playlists(spotify_object)
-    playlist_track_uris = get_tracks_from_playlist(spotify_object, user_playlist_ids[1])
+    user_playlist_ids, user_playlist_names = getUserPlaylists(spotify_object)
+    playlist_track_uris = getTracksFromPlaylist(spotify_object, user_playlist_ids[1])
 
-    featured_playlist_ids = get_featured_playlists(spotify_object)
+    featured_playlist_ids = getFeaturedPlaylists(spotify_object)
 
-    recently_played_track_uris = get_recently_played_tracks(spotify_object)
+    recently_played_track_uris = getRecentlyPlayedTracks(spotify_object)
     
-    user_top_track_uris = get_user_top_tracks(spotify_object)
+    user_top_track_uris = getUserTopTracks(spotify_object)
 
 
-    # start_playback(spotify_object, device_id, track_uris)
-    # pause_playback(spotify_object, device_id)
-    # resume_playback(spotify_object, device_id)
-    # play_next_track(spotify_object, device_id)
-    # play_previous_track(spotify_object, device_id)
+    # startPlayback(spotify_object, device_id, track_uris)
+    # pausePlayback(spotify_object, device_id)
+    # resumePlayback(spotify_object, device_id)
+    # playNextTrack(spotify_object, device_id)
+    # playPreviousTrack(spotify_object, device_id)

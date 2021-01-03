@@ -2,7 +2,7 @@ import requests
 import json
 
 
-def get_random_advice():
+def getRandomAdvice():
     url = r'https://api.adviceslip.com/advice'
     advice_response = requests.get(url)
     advice_content = json.loads(advice_response.text)
@@ -11,4 +11,4 @@ def get_random_advice():
 
 
 if __name__ == "__main__":
-    print(get_random_advice())
+    print(getRandomAdvice())

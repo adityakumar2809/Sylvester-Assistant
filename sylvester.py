@@ -73,35 +73,35 @@ def exploitSpotify(query):
         choosePlaylist('featured')
     elif 'next track' in query:
         print('next')
-        # my_spotify.play_next_track(
+        # my_spotify.playNextTrack(
         #     spotify_object, 
-        #     my_spotify.get_device_id(spotify_object)
+        #     my_spotify.getDeviceId(spotify_object)
         # )
     elif 'previous track' in query:
         print('previous')
-        # my_spotify.play_previous_track(
+        # my_spotify.playPreviousTrack(
         #     spotify_object, 
-        #     my_spotify.get_device_id(spotify_object)
+        #     my_spotify.getDeviceId(spotify_object)
         # )
     elif 'pause the track' in query:
         print('pause')
-        # my_spotify.pause_playback(
+        # my_spotify.pausePlayback(
         #     spotify_object, 
-        #     my_spotify.get_device_id(spotify_object)
+        #     my_spotify.getDeviceId(spotify_object)
         # )
     elif 'resume the track' in query:
         print('resume')
-        # my_spotify.resume_playback(
+        # my_spotify.resumePlayback(
         #     spotify_object, 
-        #     my_spotify.get_device_id(spotify_object)
+        #     my_spotify.getDeviceId(spotify_object)
         # )
 
 
 def playTrackFromUris(track_uris):
     print(track_uris)
-    # my_spotify.start_playback(
+    # my_spotify.startPlayback(
     #     spotify_object,
-    #     my_spotify.get_device_id(spotify_object),
+    #     my_spotify.getDeviceId(spotify_object),
     #     track_uris
     # )
 
@@ -109,11 +109,11 @@ def playTrackFromUris(track_uris):
 def choosePlaylist(query):
     """Choose a playlist from a given list"""
     if 'user' in query:
-        playlist_ids, playlist_names = my_spotify.get_user_playlists(
+        playlist_ids, playlist_names = my_spotify.getUserPlaylists(
             spotify_object
         )
     elif 'featured' in query:
-        playlist_ids, playlist_names = my_spotify.get_featured_playlists(
+        playlist_ids, playlist_names = my_spotify.getFeaturedPlaylists(
             spotify_object
         )
     if len(playlist_names) > 0:
@@ -132,7 +132,7 @@ def choosePlaylist(query):
 
 def playTracksFromPlaylist(playlist_id):
     """Play tracks of a given playlist id"""
-    playlist_track_uris = my_spotify.get_tracks_from_playlist(
+    playlist_track_uris = my_spotify.getTracksFromPlaylist(
         spotify_object,
         playlist_id
     )
@@ -141,7 +141,7 @@ def playTracksFromPlaylist(playlist_id):
 
 def playRecentlyPlayedTracks():
     """Play tracks which were recently played by the user"""
-    recently_played_track_uris = my_spotify.get_recently_played_tracks(
+    recently_played_track_uris = my_spotify.getRecentlyPlayedTracks(
         spotify_object
     )
     playTrackFromUris(recently_played_track_uris)
@@ -149,7 +149,7 @@ def playRecentlyPlayedTracks():
 
 def playTopTracks():
     """Play top tracks of the user"""
-    top_track_uris = my_spotify.get_user_top_tracks(
+    top_track_uris = my_spotify.getUserTopTracks(
         spotify_object
     )
     playTrackFromUris(top_track_uris)
@@ -165,7 +165,7 @@ def exploitMail(query):
 
 def checkMyEmail():
     """Check for unread emails"""
-    email_list = my_email.check_mail()
+    email_list = my_email.checkMail()
     if len(email_list) > 0:
         mail_count_str = 'mail' if len(email_list) == 1 else 'mails'
         speak(f'Found {len(email_list)} new {mail_count_str}.')
@@ -193,13 +193,13 @@ def addNote():
     """Add a note in the notes file"""
     speak('Please tell me what to remember.')
     note = takeCommand()
-    my_notes.add_note(note)
+    my_notes.addNote(note)
     speak('Note added successfully.')
 
 
 def openNotes():
     """Open the Notes file"""
-    my_notes.open_note()
+    my_notes.openNote()
 """NOTEs RELATED FUNCTIONS END"""
 
 
@@ -207,12 +207,12 @@ def openNotes():
 def exploitJoke(query):
     """Decide which action to be performed in my_jokes module"""
     if 'joke' in query: # will always evaluate to True for now
-        random_joke()
+        randomJoke()
 
 
-def random_joke():
+def randomJoke():
     """Speak a random joke"""
-    joke = my_jokes.get_random_joke()
+    joke = my_jokes.getRandomJoke()
     speak('Here is a good one for you.')
     speak(joke['setup'])
     speak(joke['punchline'])
@@ -224,12 +224,12 @@ def random_joke():
 def exploitAdvice(query):
     """Decide which action to be performed in my_advices module"""
     if 'advice' in query: # will always evaluate to True for now
-        random_advice()
+        randomAdvice()
 
 
-def random_advice():
+def randomAdvice():
     """Speak a random advice"""
-    advice = my_advices.get_random_advice()
+    advice = my_advices.getRandomAdvice()
     speak('Hope this one helps.')
     speak(advice)
     winsound.PlaySound("./audio/oh_yeah.wav", winsound.SND_FILENAME)

@@ -2,7 +2,7 @@ import requests
 import json
 
 
-def get_random_joke():
+def getRandomJoke():
     url = r'https://official-joke-api.appspot.com/random_joke'
     joke_response = requests.get(url)
     joke_content = json.loads(joke_response.text)
@@ -10,4 +10,4 @@ def get_random_joke():
 
 
 if __name__ == "__main__":
-    get_random_joke()
+    getRandomJoke()

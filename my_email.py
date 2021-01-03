@@ -5,7 +5,7 @@ import json
 from decouple import config
 
 
-def check_mail():
+def checkMail():
     """Look for any new mail received in the inbox"""
     EMAIL_ID = config('EMAIL_ID')
     EMAIL_PASSWORD = config('EMAIL_PASSWORD')
@@ -34,4 +34,4 @@ def check_mail():
 
 
 if __name__ == "__main__":
-    check_mail()
+    checkMail()
