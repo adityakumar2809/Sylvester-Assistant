@@ -7,6 +7,7 @@ import winsound
 
 import spotify
 import my_email
+import my_jokes
 
 engine = pyttsx3.init('sapi5')
 voices = engine.getProperty('voices')
@@ -161,6 +162,7 @@ def exploitMail(query):
         
 
 def checkMyEmail():
+    """Check for unread emails"""
     email_list = my_email.check_mail()
     if len(email_list) > 0:
         mail_count_str = 'mail' if len(email_list) == 1 else 'mails'
@@ -174,6 +176,22 @@ def checkMyEmail():
     else:
         speak('No new mails for you today')
 """EMAIL RELATED FUNCTIONS END"""
+
+
+"""JOKE RELATED FUNCTIONS BEGIN"""
+def exploitJoke(query):
+    """Decide which action to be performed in my_jokes module"""
+    if 'joke' in query: # will always evaluate to True for now
+        random_joke()
+
+
+def random_joke():
+    """Speak a random joke"""
+    joke = my_jokes.get_random_joke()
+    speak('Here is a good one for you.')
+    speak(joke['setup'])
+    speak(joke['punchline'])
+"""JOKE RELATED FUNCTIONS END"""
 
 
 def initiateCommandMode():
@@ -235,6 +253,8 @@ def executeCommand(query):
         exploitSpotify(query)
     elif 'mail' in query:
         exploitMail(query)
+    elif 'joke' in query:
+        exploitJoke(query)
     elif 'sleep' in query:
         speak('Terminated command mode. Going to sleep in, 3, 2, 1.')
         winsound.PlaySound("./audio/power_down.wav", winsound.SND_FILENAME)
