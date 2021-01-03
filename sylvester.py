@@ -5,11 +5,11 @@ import wikipedia
 import webbrowser
 import winsound
 
-import my_spotify
-import my_email
-import my_notes
-import my_jokes
-import my_advices
+from my_modules.my_spotify_module import my_spotify
+from my_modules.my_email_module import my_email
+from my_modules.my_note_module import my_notes
+from my_modules.my_joke_module import my_jokes
+from my_modules.my_advice_module import my_advices
 
 engine = pyttsx3.init('sapi5')
 voices = engine.getProperty('voices')
