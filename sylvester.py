@@ -208,7 +208,7 @@ def random_advice():
     advice = my_advices.get_random_advice()
     speak('Hope this one helps.')
     speak(advice)
-    # winsound.PlaySound("./audio/laughter.wav", winsound.SND_FILENAME)
+    winsound.PlaySound("./audio/oh_yeah.wav", winsound.SND_FILENAME)
 """ADVICE RELATED FUNCTIONS END"""
 
 
