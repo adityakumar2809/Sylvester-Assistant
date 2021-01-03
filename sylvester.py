@@ -157,7 +157,18 @@ def playTopTracks():
 def exploitMail(query):
     """Decide which action to be performed in my_email module"""
     if 'check' in query:
-        speak('check recognized')
+        email_list = my_email.check_mail()
+        if len(email_list) > 0:
+            mail_count_str = 'mail' if len(email_list) == 1 else 'mails'
+            speak(f'Found {len(email_list)} new {mail_count_str}.')
+            for email in email_list:
+                subject = email['subject']
+                sender = email['from']
+                sender_name = sender[:sender.index('<')]
+                sender_email = sender[sender.index('<'):]
+                speak(f'{subject} from {sender_name} via {sender_email}.')
+        else:
+            speak('No new mails for you today')
 
 
 def initiateCommandMode():
@@ -227,7 +238,6 @@ def executeCommand(query):
 
 
 if __name__ == "__main__":
-    speak('Sun, 3 Jan 2021 00:23:15 +0530')
     continue_listening = True
     command_mode = False
     while continue_listening:
