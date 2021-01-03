@@ -8,6 +8,7 @@ import winsound
 import spotify
 import my_email
 import my_jokes
+import my_advices
 
 engine = pyttsx3.init('sapi5')
 voices = engine.getProperty('voices')
@@ -195,6 +196,22 @@ def random_joke():
 """JOKE RELATED FUNCTIONS END"""
 
 
+"""ADVICE RELATED FUNCTIONS BEGIN"""
+def exploitAdvice(query):
+    """Decide which action to be performed in my_advices module"""
+    if 'advice' in query: # will always evaluate to True for now
+        random_advice()
+
+
+def random_advice():
+    """Speak a random advice"""
+    advice = my_advices.get_random_advice()
+    speak('Hope this one helps.')
+    speak(advice)
+    # winsound.PlaySound("./audio/laughter.wav", winsound.SND_FILENAME)
+"""ADVICE RELATED FUNCTIONS END"""
+
+
 def initiateCommandMode():
     """Checks if user want to talk to Sylvester"""
     recognizer = sr.Recognizer()
@@ -256,6 +273,8 @@ def executeCommand(query):
         exploitMail(query)
     elif 'joke' in query:
         exploitJoke(query)
+    elif 'advice' in query:
+        exploitAdvice(query)
     elif 'sleep' in query:
         speak('Terminated command mode. Going to sleep in, 3, 2, 1.')
         winsound.PlaySound("./audio/power_down.wav", winsound.SND_FILENAME)
