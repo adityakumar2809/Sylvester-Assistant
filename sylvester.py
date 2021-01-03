@@ -191,6 +191,7 @@ def random_joke():
     speak('Here is a good one for you.')
     speak(joke['setup'])
     speak(joke['punchline'])
+    winsound.PlaySound("./audio/laughter.wav", winsound.SND_FILENAME)
 """JOKE RELATED FUNCTIONS END"""
 
 
