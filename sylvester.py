@@ -5,7 +5,7 @@ import wikipedia
 import webbrowser
 import winsound
 
-import spotify
+import my_spotify
 import my_email
 import my_jokes
 import my_advices
@@ -13,7 +13,7 @@ import my_advices
 engine = pyttsx3.init('sapi5')
 voices = engine.getProperty('voices')
 engine.setProperty('voice', voices[0].id)
-spotify_object = spotify.setup()
+spotify_object = my_spotify.setup()
 
 number_dict = {
     'first': 0,
@@ -72,35 +72,35 @@ def exploitSpotify(query):
         choosePlaylist('featured')
     elif 'next track' in query:
         print('next')
-        # spotify.play_next_track(
+        # my_spotify.play_next_track(
         #     spotify_object, 
-        #     spotify.get_device_id(spotify_object)
+        #     my_spotify.get_device_id(spotify_object)
         # )
     elif 'previous track' in query:
         print('previous')
-        # spotify.play_previous_track(
+        # my_spotify.play_previous_track(
         #     spotify_object, 
-        #     spotify.get_device_id(spotify_object)
+        #     my_spotify.get_device_id(spotify_object)
         # )
     elif 'pause the track' in query:
         print('pause')
-        # spotify.pause_playback(
+        # my_spotify.pause_playback(
         #     spotify_object, 
-        #     spotify.get_device_id(spotify_object)
+        #     my_spotify.get_device_id(spotify_object)
         # )
     elif 'resume the track' in query:
         print('resume')
-        # spotify.resume_playback(
+        # my_spotify.resume_playback(
         #     spotify_object, 
-        #     spotify.get_device_id(spotify_object)
+        #     my_spotify.get_device_id(spotify_object)
         # )
 
 
 def playTrackFromUris(track_uris):
     print(track_uris)
-    # spotify.start_playback(
+    # my_spotify.start_playback(
     #     spotify_object,
-    #     spotify.get_device_id(spotify_object),
+    #     my_spotify.get_device_id(spotify_object),
     #     track_uris
     # )
 
@@ -108,11 +108,11 @@ def playTrackFromUris(track_uris):
 def choosePlaylist(query):
     """Choose a playlist from a given list"""
     if 'user' in query:
-        playlist_ids, playlist_names = spotify.get_user_playlists(
+        playlist_ids, playlist_names = my_spotify.get_user_playlists(
             spotify_object
         )
     elif 'featured' in query:
-        playlist_ids, playlist_names = spotify.get_featured_playlists(
+        playlist_ids, playlist_names = my_spotify.get_featured_playlists(
             spotify_object
         )
     if len(playlist_names) > 0:
@@ -131,7 +131,7 @@ def choosePlaylist(query):
 
 def playTracksFromPlaylist(playlist_id):
     """Play tracks of a given playlist id"""
-    playlist_track_uris = spotify.get_tracks_from_playlist(
+    playlist_track_uris = my_spotify.get_tracks_from_playlist(
         spotify_object,
         playlist_id
     )
@@ -140,7 +140,7 @@ def playTracksFromPlaylist(playlist_id):
 
 def playRecentlyPlayedTracks():
     """Play tracks which were recently played by the user"""
-    recently_played_track_uris = spotify.get_recently_played_tracks(
+    recently_played_track_uris = my_spotify.get_recently_played_tracks(
         spotify_object
     )
     playTrackFromUris(recently_played_track_uris)
@@ -148,7 +148,7 @@ def playRecentlyPlayedTracks():
 
 def playTopTracks():
     """Play top tracks of the user"""
-    top_track_uris = spotify.get_user_top_tracks(
+    top_track_uris = my_spotify.get_user_top_tracks(
         spotify_object
     )
     playTrackFromUris(top_track_uris)
