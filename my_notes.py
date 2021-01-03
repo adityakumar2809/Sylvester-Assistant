@@ -1,8 +1,10 @@
 import os
+import datetime
 
 def add_note(note):
+    timestamp = datetime.datetime.now()
     f = open('my_note_doc.txt', 'a')
-    f.write(f'{note}\n\n')
+    f.write(f'[{timestamp}]:\t{note}\n\n')
     f.close()
 
 def open_note():
