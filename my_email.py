@@ -18,12 +18,19 @@ def check_mail():
                 ]
     messages = [b"\n".join(mssg[1]) for mssg in messages]
     messages = [email.message_from_bytes(mssg) for mssg in messages]
+
+    email_list = []
     for message in messages:
-        print(message)
-        print("\n\nSubject = ", message['subject'], end='\n\n\n')
-        print("\n\nFrom = ", message['from'], end='\n\n\n')
-        print("\n\nDate = ", message['date'], end='\n\n\n')
+        email_list.append(
+            {
+                'from': message['from'],
+                'to': message['to'],
+                'subject': message['subject'],
+                'date': message['date'],
+            }
+        )
     pop_conn.quit()
+    return email_list
 
 
 if __name__ == "__main__":
