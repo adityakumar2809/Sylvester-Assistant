@@ -4,12 +4,14 @@ import speech_recognition as sr
 import wikipedia
 import webbrowser
 import winsound
+import num2words
 
 from my_modules.my_spotify_module import my_spotify
 from my_modules.my_email_module import my_email
 from my_modules.my_note_module import my_notes
 from my_modules.my_joke_module import my_jokes
 from my_modules.my_advice_module import my_advices
+from my_modules.my_performance_module import my_performances
 
 engine = pyttsx3.init('sapi5')
 voices = engine.getProperty('voices')
@@ -240,6 +242,27 @@ def randomAdvice():
 """ADVICE RELATED FUNCTIONS END"""
 
 
+"""PERFORMANCE RELATED FUNCTIONS BEGIN"""
+def exploitPerformance(query):
+    """Decide which action to be performed in my_performances module"""
+    if 'cpu' in query:
+        CPUStats()
+
+
+def CPUStats():
+    """Fetch CPU Stats"""
+    cpu_stats = my_performances.getCPUStats()
+    ctx_switches = num2words.num2words(cpu_stats.ctx_switches)
+    interrupts = num2words.num2words(cpu_stats.interrupts)
+    syscalls = num2words.num2words(cpu_stats.syscalls)
+    speak(
+        f'I already experienced {interrupts} interrupts, performed \
+        {ctx_switches} context switches, and responded to {syscalls} system\
+        calls. Isn\'t it enough for you?'
+    )
+"""PERFORMANCE RELATED FUNCTIONS ENDS"""
+
+
 def initiateCommandMode():
     """Checks if user want to talk to Sylvester"""
     recognizer = sr.Recognizer()
@@ -305,6 +328,8 @@ def executeCommand(query):
         exploitJoke(query)
     elif 'advice' in query:
         exploitAdvice(query)
+    elif 'performing' in query:
+        exploitPerformance(query)
     elif 'sleep' in query:
         speak('Terminated command mode. Going to sleep in, 3, 2, 1.')
         winsound.PlaySound("./audio/power_down.wav", winsound.SND_FILENAME)
