@@ -6,6 +6,7 @@ import webbrowser
 import winsound
 
 import spotify
+import my_email
 
 engine = pyttsx3.init('sapi5')
 voices = engine.getProperty('voices')
@@ -56,6 +57,7 @@ def searchWikipedia(query):
     speak(f"According to Wikipedia, {results}")
 
 
+"""SPOTIFY RELATED FUNCTIONS BEGIN"""
 def exploitSpotify(query):
     """Decide which action to be performed in spotify module"""
     if 'my playlist' in query:
@@ -148,6 +150,14 @@ def playTopTracks():
         spotify_object
     )
     playTrackFromUris(top_track_uris)
+"""SPOTIFY RELATED FUNCTIONS END"""
+
+
+"""EMAIL RELATED FUNCTIONS BEGIN"""
+def exploitMail(query):
+    """Decide which action to be performed in my_email module"""
+    if 'check' in query:
+        speak('check recognized')
 
 
 def initiateCommandMode():
@@ -207,6 +217,8 @@ def executeCommand(query):
         webbrowser.open('https://www.youtube.com')
     elif 'spotify' in query:
         exploitSpotify(query)
+    elif 'mail' in query:
+        exploitMail(query)
     elif 'sleep' in query:
         speak('Terminated command mode. Going to sleep in, 3, 2, 1.')
         winsound.PlaySound("./audio/power_down.wav", winsound.SND_FILENAME)
