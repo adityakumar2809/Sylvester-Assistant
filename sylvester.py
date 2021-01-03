@@ -7,6 +7,7 @@ import winsound
 
 import my_spotify
 import my_email
+import my_notes
 import my_jokes
 import my_advices
 
@@ -179,6 +180,38 @@ def checkMyEmail():
 """EMAIL RELATED FUNCTIONS END"""
 
 
+"""NOTES RELATED FUNCTIONS BEGIN"""
+def exploitNote(query):
+    """Decide which action to be performed in my_notes module"""
+    if 'remember' in query:
+        addNote()
+    elif 'open' in query:
+        openNotes()
+
+
+def addNote():
+    """Add a note in the notes file"""
+    speak('Please tell me what to remember.')
+    note = takeCommand()
+    my_notes.add_note(note)
+    speak('Note added successfully.')
+
+
+def openNotes():
+    """Open the Notes file"""
+    my_notes.open_note()
+
+
+def random_joke():
+    """Speak a random joke"""
+    joke = my_jokes.get_random_joke()
+    speak('Here is a good one for you.')
+    speak(joke['setup'])
+    speak(joke['punchline'])
+    winsound.PlaySound("./audio/laughter.wav", winsound.SND_FILENAME)
+"""JOKE RELATED FUNCTIONS END"""
+
+
 """JOKE RELATED FUNCTIONS BEGIN"""
 def exploitJoke(query):
     """Decide which action to be performed in my_jokes module"""
@@ -271,6 +304,8 @@ def executeCommand(query):
         exploitSpotify(query)
     elif 'mail' in query:
         exploitMail(query)
+    elif 'note' in query:
+        exploitNote(query)
     elif 'joke' in query:
         exploitJoke(query)
     elif 'advice' in query:
