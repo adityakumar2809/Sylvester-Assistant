@@ -200,16 +200,7 @@ def addNote():
 def openNotes():
     """Open the Notes file"""
     my_notes.open_note()
-
-
-def random_joke():
-    """Speak a random joke"""
-    joke = my_jokes.get_random_joke()
-    speak('Here is a good one for you.')
-    speak(joke['setup'])
-    speak(joke['punchline'])
-    winsound.PlaySound("./audio/laughter.wav", winsound.SND_FILENAME)
-"""JOKE RELATED FUNCTIONS END"""
+"""NOTEs RELATED FUNCTIONS END"""
 
 
 """JOKE RELATED FUNCTIONS BEGIN"""
