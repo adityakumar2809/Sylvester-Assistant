@@ -263,6 +263,15 @@ def CPUStats():
 """PERFORMANCE RELATED FUNCTIONS ENDS"""
 
 
+def killProcess():
+    print('Process Killed')
+    speak('Why do you do this to me? Am I not good enough for you? But it\'s \
+        okay. I\'ll do as you say.')
+    winsound.PlaySound("./audio/stab.wav", winsound.SND_FILENAME)
+    winsound.PlaySound("./audio/scream.wav", winsound.SND_FILENAME)
+    exit(0)
+
+
 def initiateCommandMode():
     """Checks if user want to talk to Sylvester"""
     recognizer = sr.Recognizer()
@@ -285,6 +294,8 @@ def initiateCommandMode():
                     winsound.PlaySound("./audio/power_up.wav", winsound.SND_FILENAME)
                     wishMe()
                     return True
+                elif 'kill' in query.lower():
+                    killProcess()
         except Exception as e:
             return False
 
@@ -334,6 +345,8 @@ def executeCommand(query):
         speak('Terminated command mode. Going to sleep in, 3, 2, 1.')
         winsound.PlaySound("./audio/power_down.wav", winsound.SND_FILENAME)
         return False
+    elif 'kill' in query:
+        killProcess()
     return True
 
 
