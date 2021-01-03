@@ -144,6 +144,7 @@ def playRecentlyPlayedTracks():
     recently_played_track_uris = my_spotify.getRecentlyPlayedTracks(
         spotify_object
     )
+    speak('Playing your recently played tracks')
     playTrackFromUris(recently_played_track_uris)
 
 
@@ -152,6 +153,7 @@ def playTopTracks():
     top_track_uris = my_spotify.getUserTopTracks(
         spotify_object
     )
+    speak('Playing your top tracks')
     playTrackFromUris(top_track_uris)
 """SPOTIFY RELATED FUNCTIONS END"""
 
@@ -160,6 +162,7 @@ def playTopTracks():
 def exploitMail(query):
     """Decide which action to be performed in my_email module"""
     if 'check' in query:
+        speak('Checking your email')
         checkMyEmail()
         
 
@@ -186,6 +189,7 @@ def exploitNote(query):
     if 'remember' in query:
         addNote()
     elif 'open' in query:
+        speak('Opening Notes')
         openNotes()
 
 
