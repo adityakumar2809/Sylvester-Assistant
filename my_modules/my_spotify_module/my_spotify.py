@@ -108,14 +108,14 @@ if __name__ == "__main__":
     spotify_object = setup()
     device_id = getDeviceId(spotify_object)
 
-    user_playlist_ids, user_playlist_names = getUserPlaylists(spotify_object)
-    playlist_track_uris = getTracksFromPlaylist(spotify_object, user_playlist_ids[1])
+    # user_playlist_ids, user_playlist_names = getUserPlaylists(spotify_object)
+    # playlist_track_uris = getTracksFromPlaylist(spotify_object, user_playlist_ids[1])
 
-    featured_playlist_ids = getFeaturedPlaylists(spotify_object)
+    # featured_playlist_ids = getFeaturedPlaylists(spotify_object)
 
-    recently_played_track_uris = getRecentlyPlayedTracks(spotify_object)
+    # recently_played_track_uris = getRecentlyPlayedTracks(spotify_object)
     
-    user_top_track_uris = getUserTopTracks(spotify_object)
+    # user_top_track_uris = getUserTopTracks(spotify_object)
 
 
     # startPlayback(spotify_object, device_id, track_uris)

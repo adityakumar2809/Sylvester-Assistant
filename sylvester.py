@@ -74,38 +74,33 @@ def exploitSpotify(query):
     elif 'featured playlist' in query:
         choosePlaylist('featured')
     elif 'next track' in query:
-        print('next')
-        # my_spotify.playNextTrack(
-        #     spotify_object, 
-        #     my_spotify.getDeviceId(spotify_object)
-        # )
+        my_spotify.playNextTrack(
+            spotify_object, 
+            my_spotify.getDeviceId(spotify_object)
+        )
     elif 'previous track' in query:
-        print('previous')
-        # my_spotify.playPreviousTrack(
-        #     spotify_object, 
-        #     my_spotify.getDeviceId(spotify_object)
-        # )
+        my_spotify.playPreviousTrack(
+            spotify_object, 
+            my_spotify.getDeviceId(spotify_object)
+        )
     elif 'pause the track' in query:
-        print('pause')
-        # my_spotify.pausePlayback(
-        #     spotify_object, 
-        #     my_spotify.getDeviceId(spotify_object)
-        # )
+        my_spotify.pausePlayback(
+            spotify_object, 
+            my_spotify.getDeviceId(spotify_object)
+        )
     elif 'resume the track' in query:
-        print('resume')
-        # my_spotify.resumePlayback(
-        #     spotify_object, 
-        #     my_spotify.getDeviceId(spotify_object)
-        # )
+        my_spotify.resumePlayback(
+            spotify_object, 
+            my_spotify.getDeviceId(spotify_object)
+        )
 
 
 def playTrackFromUris(track_uris):
-    print(track_uris)
-    # my_spotify.startPlayback(
-    #     spotify_object,
-    #     my_spotify.getDeviceId(spotify_object),
-    #     track_uris
-    # )
+    my_spotify.startPlayback(
+        spotify_object,
+        my_spotify.getDeviceId(spotify_object),
+        track_uris
+    )
 
 
 def choosePlaylist(query):
